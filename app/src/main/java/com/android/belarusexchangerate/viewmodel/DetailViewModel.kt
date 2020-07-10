@@ -10,7 +10,11 @@ import com.android.belarusexchangerate.utils.Status
 import kotlinx.coroutines.launch
 
 
-class DetailViewModel(private val mainRepository: MainRepository) : ViewModel() {
+class DetailViewModel(
+    private val mainRepository: MainRepository
+) : ViewModel() {
+
+    private val city = MutableLiveData<String>()
 
     private val _banks = MutableLiveData<List<Bank>>()
     val banks: LiveData<List<Bank>>
@@ -20,15 +24,11 @@ class DetailViewModel(private val mainRepository: MainRepository) : ViewModel() 
     val loadingState: LiveData<Status>
         get() = _loadingState
 
-    init {
-        fetchData()
-    }
-
-    fun fetchData(city: String = "Кобрин") {
+    fun fetchData(city: String) {
         viewModelScope.launch {
             try {
                 _loadingState.value = Status.LOADING
-                _banks.value = mainRepository.getUsers(city)
+                _banks.value = mainRepository.getBanks(city)
                 _loadingState.value = Status.SUCCESS
             } catch (exception: Exception) {
                 _loadingState.value = Status.ERROR
@@ -36,4 +36,10 @@ class DetailViewModel(private val mainRepository: MainRepository) : ViewModel() 
             }
         }
     }
+
+    fun saveCity(city: String) {
+        this.city.value = city
+    }
+
+    fun getCity() = city.value
 }

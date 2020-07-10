@@ -6,7 +6,7 @@ import kotlinx.coroutines.withContext
 
 class MainRepository(private val apiHelper: ApiHelper) {
 
-    suspend fun getUsers(city: String) = withContext(Dispatchers.IO) {
-        apiHelper.getUsers(city)
+    suspend fun getBanks(city: String) = withContext(Dispatchers.IO) {
+        apiHelper.getBanks(city)
     }
 }

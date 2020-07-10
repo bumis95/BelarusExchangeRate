@@ -6,7 +6,9 @@ import com.android.belarusexchangerate.data.api.ApiHelper
 import com.android.belarusexchangerate.data.repository.MainRepository
 
 
-class DetailViewModelFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Factory {
+class DetailViewModelFactory(
+    private val apiHelper: ApiHelper
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
